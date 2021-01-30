@@ -1,0 +1,1 @@
+This is a very simple Flask based Progressive Web App that is a demonstration of how to convert a simple Excel spreadsheet calculator tool into a web app

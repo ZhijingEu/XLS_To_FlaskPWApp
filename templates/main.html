@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <title>Demo App - Epidemic Contagion Estimation Tool</title>   
+  
+  <link rel="stylesheet" href="static/css/jquery-ui.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="static/js/jquery-ui.js"></script>
+  <link href='static/css/sofia.css' rel='stylesheet' type='text/css'>
+    
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/lean-slider.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/sample-styles.css') }}">
+
+    
+<link rel="icon" href="{{ url_for('static', filename='images/icon-96.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="viewport"    content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+<meta name="description" content="Epidemic Contagion Simulator">
+    
+<style>
+h1 {
+  margin-left: 25px;
+}
+
+container {
+  margin-left: 25px;
+}
+    
+img {
+  margin-left: 25px;
+} 
+
+form {
+  margin-left: 25px;
+} 
+    
+p {
+  margin-left: 25px;
+}
+</style>
+    
+</head>
+<body>
+<h1>Epidemic Contagion Growth Estimate - Demo App</h1>
+<img src="static/images/favicon-32x32.png" alt="icon">
+<p>This is a demonstration app that plots contagion growth rates (i.e daily and cumulative no of cases) for a given set of parameters based on a <a href="https://en.wikipedia.org/wiki/Logistic_function#In_medicine:_modeling_of_a_pandemic" target="_blank" rel="noopener">Logistic Growth Curve</a> and a <a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model" target="_blank" rel="noopener">SIR (Susceptible,Infected,Recovered) Model</a></p>
+<p>CAUTION: This tool is NOT meant for "serious" estimates as there are a whole bunch of assumptions that come with it !</p> 
+<p>It doesn't do very much as this is ONLY meant to be a Minimal Viable demo of how to convert a spreadsheet calculator tool from a stand-alone file into a web-app</p>
+<br>   
+
+<div id="plain">
+    
+<table style="border-collapse:collapse;border-spacing:0" class="tg"><thead><tr><th style="border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal" colspan="2">
+    <span>Please Input Key Parameters</span>
+    </th></tr></thead><tbody><tr><td style="border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal" colspan="2">
+    
+    <label for="StartDate">Start Date</label><br /><input name="StartDate" id="StartDate" type="date" value="2019-01-02" /> <br />
+    
+    </td></tr><tr><td style="border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">
+    
+  <span>Logistic Growth Curve Parameters</span><br /><br />
+  <label for="LogisticMaxInfected">Estimated Max Infected:</label>
+    <br /><input max="10000000" min="1" input name="LogisticMaxInfected" id="LogisticMaxInfected" type="number" value="100000" /> <br />
+    <label for="LogisticSteepness">Steepness:</label>
+    <br /><input max="100" min="1" input name="LogisticSteepness" id="LogisticSteepness" type="number" value="15" /> <br />
+  <label for="LogisticMidPoint">Mid Point(Days):</label>
+    <br /><input max="364" min="1" input name="LogisticMidPoint" id="LogisticMidPoint" type="number" value="90" /> <br />  
+    
+    
+    </td><td style="border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">
+    
+    
+                   <span>SIR Model Parameters</span><br />
+    <br />
+  <label for="SIRTotalPop">Total Susceptible Population Exposed:</label>
+    <br /><input max="10000000" min="1" input name="SIRTotalPop" id="SIRTotalPop" type="number" value="5000" /> <br />
+  <label for="SIRI0">Initial No Of Infected Individuals <br>(NB Cannot exceed Total Pop):</label>
+    <br /><input max="1000" min="1" input name="SIRI0" id="SIRI0" type="number" value="1" /> <br />
+    <span>Initial No Of Recovered Individuals=0</span><br />
+  <label for="SIRBeta">Beta (Contact Rate):</label>
+  <br /><input max="1.00" min="0.01" input name="SIRBeta" id="SIRBeta" step=0.01 type="number" value="0.15" /> <br />
+  <label for="SIRGamma">Gamma (Mean Recovery Rate in 1/days):</label>
+  <br /><input max="1.00" min="0.01" input name="SIRGamma" id="SIRGamma" step=0.01 type="number" value="0.05" /> <br />    
+    
+    </td></tr><tr><td style="border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal" colspan="2">
+    
+      <select name="plot_type" id="plot_type">
+    <option value="" disabled="disabled" selected="selected">-Select Option Below-</option>
+    <option value="daily">DAILY </option>
+    <option value="cumulative">CUMULATIVE </option>
+  </select>
+  <br/>
+  <button type="button" id="query">View Plot</button>
+  <br/>
+    
+    </td></tr></tbody></table>
+</div>
+
+<div id="loading-div-background">
+  <div id="loading-div" class="ui-corner-all" >
+    <img style="height:64px;margin:10px;" src="static/css/images/282.GIF" alt="Loading.."/>
+    <h3 style="color:gray;font-weight:normal;">Loading....</h3>
+  </div>
+</div>
+
+<br>
+
+<div id="container" style="width:100%; align:left; margin-left: 25px;">{{stringmessage}}</div>
+<br>
+<br>
+<p><b>Notes:</b></p> 
+
+<p>The interactive chart graphics were created using the very awesome MPLD3 library in python that translates Matplotlib to D3.JS semi-automatically <a href="https://mpld3.github.io" target="_blank" rel="noopener">MPLD3 Github</a><p>
+
+<p>Code for the SIR calculation adapted from : <a href="https://scipython.com/book/chapter-8-scipy/additional-examples/the-sir-epidemic-model" target="_blank" rel="noopener">Scipython.com</a> </p>
+    
+<p>Code for this site is available here: <a href="https://github.com/ZhijingEu/SpreadsheetDeployment" target="_blank">Github Repo</a> and was adapted from : <a href="https://github.com/nipunbatra/mpld3-flask" target="_blank" rel="noopener">GitHub MLPD3 Nipunbatra</a></p>
+
+<p>The code that turns this site into a PWA Progressive Web App PWA was based on guidance from <a href="https://www.flaskpwa.com/" target="_blank" rel="noopener">PWA Development with Flask</a> </p>
+
+<p>Read the accompanying Medium Article here: <a href="https://zhijingeu.medium.com/how-to-build-protect-share-a-proprietary-spreadsheet-calculator-to-support-lead-generation-da72e7a46cfa">How To Build, Protect & Share A Proprietary Spreadsheet Calculator</a></p>
+<img src="static/mediumpage.png" alt="medium">
+<br>
+<div style="font-size:10px; margin-left: 25px;">Icons and images used made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+<script type="text/javascript">   
+$("#loading-div-background").css({ opacity: 0.7 });
+function datetime_to_epoch(datetime)
+{
+  var aDate = datetime.split('/');
+  var epoch = new Date(aDate[2] + "," + aDate[0] + "," + aDate[1]).getTime() / 1000;
+  return epoch;
+}
+
+$("#query").click(function() {  
+
+  $("#loading-div-background").show();
+  $("#container").hide();
+  var StartDate = {"StartDate":document.getElementById('StartDate').value}
+  
+  var LogisticMaxInfected = {"LogisticMaxInfected":document.getElementById('LogisticMaxInfected').value}
+  
+  var LogisticSteepness = {"LogisticSteepness":document.getElementById('LogisticSteepness').value}
+  
+  var LogisticMidPoint = {"LogisticMidPoint":document.getElementById('LogisticMidPoint').value}
+  
+  var SIRTotalPop = {"SIRTotalPop":document.getElementById('SIRTotalPop').value}
+  
+  var SIRI0 = {"SIRI0":document.getElementById('SIRI0').value}
+  
+  var SIRBeta = {"SIRBeta":document.getElementById('SIRBeta').value}
+  
+  var SIRGamma = {"SIRGamma":document.getElementById('SIRGamma').value}
+  
+//   var plot_type = document.getElementById('plot_type').value
+  var qu = {"plot_type":document.getElementById('plot_type').value}
+ 
+  
+  $.ajax({
+    type: "POST",
+    async:true,
+    contentType: "application/json; charset=utf-8",
+    url: "/query",
+//     data: JSON.stringify(qu,StartDate,LogisticMaxInfected,LogisticSteepness,LogisticMidPoint,SIRTotalPop,SIRI0,SIRBeta,SIRGamma),
+      
+    data: JSON.stringify({
+            "plot_type":document.getElementById('plot_type').value,
+            "StartDate":document.getElementById('StartDate').value,
+            "LogisticMaxInfected":document.getElementById('LogisticMaxInfected').value,
+        "LogisticSteepness":document.getElementById('LogisticSteepness').value,
+        "LogisticMidPoint":document.getElementById('LogisticMidPoint').value,
+        "SIRTotalPop":document.getElementById('SIRTotalPop').value,
+        "SIRI0":document.getElementById('SIRI0').value,
+        "SIRBeta":document.getElementById('SIRBeta').value,
+        "SIRGamma":document.getElementById('SIRGamma').value
+        }),
+      
+    success: function (data) {     
+     var graph = $("#container");
+     graph.html(data);   
+     $("#loading-div-background").hide();      
+     $("#container").show();
+   },
+      dataType:'html'
+ });
+});
+
+</script>
+
+</body>
+
+</html>

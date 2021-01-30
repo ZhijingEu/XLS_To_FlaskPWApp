@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Epidemic Contagion Growth Estimate - Demo App</h1>
+<img src="static/images/favicon-32x32.png" alt="icon">
+<br>
+<h2>Sorry...you need to be online to use this :'( </h2>
+<p>This is a minimal viable demo app that shows how an Excel spreadsheet tool can be converted into a web app </p>
+<p>The tool plots contagion growth rates (i.e daily and cumulative no of cases) for a given set of parameters based on a Logistic Growth Curve and a SIR (Susceptible,Infected,Recovered) Model</p>
+
+<br>   
+<style> 
+div #sidebar
+{
+  border:1px solid #a1a1a1;
+  padding:5px 10px; 
+  border-radius:20px;
+  font-size: 16px;
+}
+</style>
+
+<div id="plain">
+<img src="static/demo.gif" alt="demo">   
+</div>
+
+<br>
+<br>
+<div style="font-size:10px;">Icons and images used made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+<br>
+<br>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <title>Demo App - Epidemic Contagion Estimation Tool</title>   
+  
+  <link rel="stylesheet" href="static/css/jquery-ui.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="static/js/jquery-ui.js"></script>
+  <link href='static/css/sofia.css' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/lean-slider.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/sample-styles.css') }}">
+
+    
+<link rel="icon" href="{{ url_for('static', filename='images/icon-96.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="viewport"    content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+<meta name="description" content="Epidemic Contagion Simulator">
+    
+<style>
+h1 {
+  margin-left: 25px;
+}
+
+container {
+  margin-left: 25px;
+}
+    
+img {
+  margin-left: 25px;
+} 
+
+form {
+  margin-left: 25px;
+} 
+    
+p {
+  margin-left: 25px;
+}
+</style>
+    
+</head>
+    
+<body>
+    
+<button class="add-button" style="position: absolute;top: 2px;left: 2px;">Add to home screen</button>
+<h1>Epidemic Contagion Growth Estimate - Demo App</h1>
+<img src="static/images/favicon-32x32.png" alt="icon">
+<p>This is a minimal viable demo app that shows how an Excel spreadsheet tool can be converted into a web app </p>
+<p>The tool plots contagion growth rates (i.e daily and cumulative no of cases) for a given set of parameters based on a <a href="https://en.wikipedia.org/wiki/Logistic_function#In_medicine:_modeling_of_a_pandemic" target="_blank" rel="noopener">Logistic Growth Curve</a> and a <a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model" target="_blank" rel="noopener">SIR (Susceptible,Infected,Recovered) Model</a></p>
+
+<br>   
+
+<div id="plain">
+<img src="static/demo.gif" alt="demo">   
+</div>
+
+<br>
+<div id="ff-compose"></div>
+<p>Leave your mail below to join my mailing list!</p>
+<form action="/main" style="text-align: left">
+<label for="email">Email:</label>
+<input type="email" id="email" name="email"><br> 
+<!-- Note this email logging field above is not actually working in python script and is "for show only"  -->
+<p>...Or if you'd rather not - we're cool - just click the button above to head straight to the main page</p>    
+<button type="submit" value="Submit" onclick="loading();">Let's Go !</button>           
+</form>
+<br>
+<p>Read the accompanying Medium Article here: <a href="https://zhijingeu.medium.com/how-to-build-protect-share-a-proprietary-spreadsheet-calculator-to-support-lead-generation-da72e7a46cfa">How To Build, Protect & Share A Proprietary Spreadsheet Calculator</a></p>
+<img src="static/mediumpage.png" alt="medium">
+<br>
+<div style="font-size:10px;margin-left: 25px;">Icons and images used made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+<br>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+
+</html>
+
