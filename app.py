@@ -31,16 +31,24 @@ def plot_curves(startdate,k,Xo,L,N,I0,beta,gamma): # A grid of time points (in d
 
     t = np.linspace(0, 360, 360)
     cumulative=[]
+    
     for step in t:
         cumulative.append(logistic_growth(step,L,k,Xo))
-
+        
+    dailySIRarray=[]
+    for i in range(0,len(I)):
+        if (I[i]-I[i-1])<0:
+            dailySIRarray.append(0)
+        else:
+            dailySIRarray.append(I[i]-I[i-1])
+        
     cumulative_array = np.array(cumulative)
 
     cumulative_array_shifted = np.insert(np.delete(cumulative_array, -1), 0, 0)
 
     daily_array = cumulative_array - cumulative_array_shifted  # the desired output in OP
 
-    TotalCurves=pd.DataFrame(I,columns=["SIR_Model_Daily"])
+    TotalCurves=pd.DataFrame(dailySIRarray,columns=["SIR_Model_Daily"])
     TotalCurves["SIR_Model_Cumulative"]=TotalCurves["SIR_Model_Daily"].cumsum()
     TotalCurves["Logistic_Growth_Curve_Daily"]=daily_array
     TotalCurves["Logistic_Growth_Curve_Cumulative"]=cumulative_array
@@ -201,11 +209,11 @@ app = Flask(__name__)
 
 @app.route('/service-worker.js')
 def sw():
-    #return app.send_static_file('service-worker.js')
-    response = make_response(send_from_directory('static', filename='service-worker.js'))
+    return app.send_static_file('service-worker.js')
+    #response = make_response(send_from_directory('static', filename='service-worker.js'))
     #change the content header file
-    response.headers['Content-Type']='application/javascript'
-    return response
+    #response.headers['Content-Type']='application/javascript'
+    #return response
 
 
 @app.route('/')

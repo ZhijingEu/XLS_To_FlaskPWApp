@@ -62,9 +62,9 @@ p {
     
   <span>Logistic Growth Curve Parameters</span><br /><br />
   <label for="LogisticMaxInfected">Estimated Max Infected:</label>
-    <br /><input max="10000000" min="1" input name="LogisticMaxInfected" id="LogisticMaxInfected" type="number" value="100000" /> <br />
+    <br /><input max="10000000" min="1" input name="LogisticMaxInfected" id="LogisticMaxInfected" type="number" value="75000" /> <br />
     <label for="LogisticSteepness">Steepness:</label>
-    <br /><input max="100" min="1" input name="LogisticSteepness" id="LogisticSteepness" type="number" value="15" /> <br />
+    <br /><input max="100" min="1" input name="LogisticSteepness" id="LogisticSteepness" type="number" value="10" /> <br />
   <label for="LogisticMidPoint">Mid Point(Days):</label>
     <br /><input max="364" min="1" input name="LogisticMidPoint" id="LogisticMidPoint" type="number" value="90" /> <br />  
     
@@ -75,14 +75,14 @@ p {
                    <span>SIR Model Parameters</span><br />
     <br />
   <label for="SIRTotalPop">Total Susceptible Population Exposed:</label>
-    <br /><input max="10000000" min="1" input name="SIRTotalPop" id="SIRTotalPop" type="number" value="5000" /> <br />
+    <br /><input max="10000000" min="1" input name="SIRTotalPop" id="SIRTotalPop" type="number" value="300000" /> <br />
   <label for="SIRI0">Initial No Of Infected Individuals <br>(NB Cannot exceed Total Pop):</label>
     <br /><input max="1000" min="1" input name="SIRI0" id="SIRI0" type="number" value="1" /> <br />
     <span>Initial No Of Recovered Individuals=0</span><br />
   <label for="SIRBeta">Beta (Contact Rate):</label>
-  <br /><input max="1.00" min="0.01" input name="SIRBeta" id="SIRBeta" step=0.01 type="number" value="0.15" /> <br />
+  <br /><input max="1.00" min="0.01" input name="SIRBeta" id="SIRBeta" step=0.01 type="number" value="0.2" /> <br />
   <label for="SIRGamma">Gamma (Mean Recovery Rate in 1/days):</label>
-  <br /><input max="1.00" min="0.01" input name="SIRGamma" id="SIRGamma" step=0.01 type="number" value="0.05" /> <br />    
+  <br /><input max="1.00" min="0.01" input name="SIRGamma" id="SIRGamma" step=0.01 type="number" value="0.08" /> <br />    
     
     </td></tr><tr><td style="border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal" colspan="2">
     
@@ -116,7 +116,7 @@ p {
 
 <p>Code for the SIR calculation adapted from : <a href="https://scipython.com/book/chapter-8-scipy/additional-examples/the-sir-epidemic-model" target="_blank" rel="noopener">Scipython.com</a> </p>
     
-<p>Code for this site is available here: <a href="https://github.com/ZhijingEu/SpreadsheetDeployment" target="_blank">Github Repo</a> and was adapted from : <a href="https://github.com/nipunbatra/mpld3-flask" target="_blank" rel="noopener">GitHub MLPD3 Nipunbatra</a></p>
+<p>Code for this site is available here: <a href="https://github.com/ZhijingEu/XLS_To_FlaskPWApp" target="_blank">Github Repo</a> and was adapted from : <a href="https://github.com/nipunbatra/mpld3-flask" target="_blank" rel="noopener">GitHub MLPD3 Nipunbatra</a></p>
 
 <p>The code that turns this site into a PWA Progressive Web App PWA was based on guidance from <a href="https://www.flaskpwa.com/" target="_blank" rel="noopener">PWA Development with Flask</a> </p>
 
