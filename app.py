@@ -227,4 +227,4 @@ def query():
     return draw_fig(fig_type,startdate,k,Xo,L,N,I0,beta,gamma)
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5000)
+    app.run(debug=True)
