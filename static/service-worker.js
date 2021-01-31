@@ -6,7 +6,8 @@ const FILES_TO_CACHE = [
   '/static/css/jquery-ui.css',
   '/static/css/images/loading.gif',
   '/static/images/favicon-32x32.png',
-  '/static/images/demo.gif',
+  '/static/demo.gif',
+  '/static/mediumpage.png',
   '/static/offline.html'
 ];
 
