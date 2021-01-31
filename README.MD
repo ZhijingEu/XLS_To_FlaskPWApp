@@ -2,6 +2,8 @@ This is a very simple Flask based Progressive Web App that is a demonstration of
 
 The live version of this site(*) is deployed using Heroku and available here: https://epidemic-curve-flask-pwa-app.herokuapp.com/
 
+The actual python file that runs the app is app.py but if you'd like to play around with the calculation functions - have a look at SimpleWebApp.ipynb in this repo. 
+
 The 'original' excel file that it is meant to mimic is located here in OneDrive: https://1drv.ms/x/s!AqZfpTxqClrLhkXfM1yJACw4QZkh?e=DaFtX8
 
 This repo specifically being the example of a DIY build your own web app approach (ref below for other options explored) 
