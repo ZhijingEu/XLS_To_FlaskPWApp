@@ -1,14 +1,10 @@
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-    .register("/service-worker.js", { scope: "/" }).then(() => {
-        console.log("Service Worker Registration succeeded as the max allowed scope was overriden to '/'.");\
+    .register('./service-worker.js')
+    .then(function(registration) {
+        console.log('Service Worker Registered!');
         return registration;
     })
-//    .register("{% url 'service-worker.js' %}")
-//    .then(function(registration) {
-//        console.log('Service Worker Registered!');
-//        return registration;
-//    })
     .catch(function(err) {
         console.error('Unable to register service worker.', err);
     });
