@@ -55,7 +55,8 @@ def plot_curves(startdate,k,Xo,L,N,I0,beta,gamma): # A grid of time points (in d
 
 #(Heavily) adapted from https://github.com/nipunbatra/mpld3-flask
 
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, make_response, send_from_directory
+
 import numpy as np
 
 import matplotlib
@@ -200,7 +201,12 @@ app = Flask(__name__)
 
 @app.route('/service-worker.js')
 def sw():
-    return app.send_static_file('service-worker.js')
+    #return app.send_static_file('service-worker.js')
+    response = make_response(send_from_directory('static', filename='service-worker.js'))
+    #change the content header file
+    response.headers['Content-Type']='application/javascript'
+    return response
+
 
 @app.route('/')
 def home():
